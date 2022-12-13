@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM opencpu/base:v2.2.8
 
 LABEL author="alper.kucukural@umassmed.edu" description="Docker image containing all requirements for the dolphinnext/ocpu app"
 
@@ -12,25 +12,11 @@ RUN apt-get update --fix-missing && \
     texlive-base texlive-latex-base texlive-fonts-recommended \
     libfontconfig1-dev libcairo2-dev libhdf5-dev
 
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh && \
-    /opt/conda/bin/conda clean -tipsy && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc
+RUN R -e "install.packages(c('knitr', 'rmarkdown', 'curl', 'httr', 'Seurat'), dependencies=TRUE)"
+RUN R -e "install.packages(c('anndata', 'xml2', 'tidyverse', 'dplyr', 'Matrix'), dependencies=TRUE)" 
+RUN R -e "install.packages(c('scales', 'RCurl', 'svglite', 'patchwork', 'readr', 'ggpubr', 'DT'), dependencies=TRUE)"
 
-COPY environment.yml /
-RUN . /opt/conda/etc/profile.d/conda.sh && \ 
-    conda activate base && \
-    conda update conda && \
-    conda install -c conda-forge mamba && \
-    mamba env create -f /environment.yml && \
-    mamba clean -a
+RUN R -e "BiocManager::install(c('DEBrowser', 'SingleCellExperiment', 'zellkonverter', 'limma', 'UCell', 'scuttle', 'SingleR', 'celldex'))"
 
-RUN mkdir -p /project /nl /mnt /share /pi
-ENV PATH /opt/conda/envs/dolphinnext/bin:$PATH
-
-COPY install_packages.R /
-RUN Rscript /install_packages.R
+RUN R -e "devtools::install_github('umms-biocore/markdownapp')"
 
