@@ -15,9 +15,8 @@ RUN apt-get update --fix-missing && \
 RUN R -e "install.packages(c('knitr', 'rmarkdown', 'curl', 'httr', 'Seurat'), dependencies=TRUE)"
 RUN R -e "install.packages(c('anndata', 'xml2', 'tidyverse', 'dplyr', 'Matrix'), dependencies=TRUE)" 
 RUN R -e "install.packages(c('scales', 'RCurl', 'svglite', 'patchwork', 'readr', 'ggpubr', 'DT'), dependencies=TRUE)"
-RUN R -e "install.packages(c('BiocManager'), dependencies=TRUE)"
+RUN R -e "install.packages(c('BiocManager', 'devtools'), dependencies=TRUE)"
 
 RUN R -e "BiocManager::install(c('DEBrowser', 'SingleCellExperiment', 'zellkonverter', 'limma', 'UCell', 'scuttle', 'SingleR', 'celldex'))"
-
 RUN R -e "devtools::install_github('umms-biocore/markdownapp')"
 
