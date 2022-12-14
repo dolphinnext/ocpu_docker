@@ -10,7 +10,7 @@ RUN apt-get update --fix-missing && \
     libtbb-dev gcc g++ libcairo2-dev pandoc \
     libcurl4-openssl-dev libssl-dev libxml2-dev \              
     texlive-base texlive-latex-base texlive-fonts-recommended \
-    libfontconfig1-dev libcairo2-dev libhdf5-dev \
+    libfontconfig1-dev libcairo2-dev libhdf5-dev cmake \
     libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 
 RUN R -e "install.packages(c('knitr', 'rmarkdown', 'curl', 'httr', 'Seurat'), dependencies=TRUE)"
