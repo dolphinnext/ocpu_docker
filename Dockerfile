@@ -10,7 +10,8 @@ RUN apt-get update --fix-missing && \
     libtbb-dev gcc g++ libcairo2-dev pandoc \
     libcurl4-openssl-dev libssl-dev libxml2-dev \              
     texlive-base texlive-latex-base texlive-fonts-recommended \
-    libfontconfig1-dev libcairo2-dev libhdf5-dev
+    libfontconfig1-dev libcairo2-dev libhdf5-dev \
+    libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 
 RUN R -e "install.packages(c('knitr', 'rmarkdown', 'curl', 'httr', 'Seurat'), dependencies=TRUE)"
 RUN R -e "install.packages(c('anndata', 'xml2', 'tidyverse', 'dplyr', 'Matrix'), dependencies=TRUE)" 
@@ -18,5 +19,6 @@ RUN R -e "install.packages(c('scales', 'RCurl', 'svglite', 'patchwork', 'readr',
 RUN R -e "install.packages(c('BiocManager', 'devtools'), dependencies=TRUE)"
 
 RUN R -e "BiocManager::install(c('DEBrowser', 'SingleCellExperiment', 'zellkonverter', 'limma', 'UCell', 'scuttle', 'SingleR', 'celldex'))"
-RUN R -e "devtools::install_github('umms-biocore/markdownapp')"
+RUN R -e "devtools::install_github('umms-biocore/markdownapp', upgrade = 'always')"
+
 
