@@ -21,3 +21,4 @@ RUN R -e "install.packages(c('BiocManager', 'devtools'), dependencies=TRUE)"
 RUN R -e "BiocManager::install(c('DEBrowser', 'SingleCellExperiment', 'zellkonverter', 'limma', 'UCell', 'scuttle', 'SingleR', 'celldex'))"
 RUN R -e "devtools::install_github('umms-biocore/markdownapp', upgrade = 'always')"
 
+
