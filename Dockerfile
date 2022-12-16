@@ -7,6 +7,7 @@ ENV PATH /opt/conda/bin:$PATH
 
 RUN apt-get update --fix-missing && \
     apt-get install -y vim wget bzip2 ca-certificates curl git \
+
     libtbb-dev gcc g++ libcairo2-dev pandoc make gsfonts libglpk-dev \
     libcurl4-openssl-dev libssl-dev libxml2-dev libicu-dev libmagick++-dev \              
     texlive-base texlive-latex-base texlive-fonts-recommended libgmp3-dev \
@@ -20,4 +21,5 @@ RUN R -e "install.packages(c('BiocManager', 'devtools'), dependencies=TRUE)"
 
 RUN R -e "BiocManager::install(c('debrowser', 'SingleCellExperiment', 'zellkonverter', 'limma', 'UCell', 'scuttle', 'SingleR', 'celldex'))"
 RUN R -e "devtools::install_github('umms-biocore/markdownapp', upgrade = 'always')"
+
 
